@@ -1,0 +1,25 @@
+{
+  "window.zoomLevel": 1,
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "extensions.ignoreRecommendations": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.tabSize": 2,
+  "files.autoSaveDelay": 1000,
+  "material-icon-theme.showUpdateMessage": true,
+  "emmet.includeLanguages": {
+      "JavaScript": "html"
+  },
+  "eslint.autoFixOnSave": true,
+  "ruby.intellisense": "rubyLocate",
+  "workbench.colorTheme": "Ayu Dark",
+  "editor.detectIndentation": true,
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
+  "files.associations": {
+    "*.sql": "sql"
+  },
+  "files.autoSave": "off",
+  "terminal.integrated.rendererType": "dom",
+  "javascript.updateImportsOnFileMove.enabled": "always"
+}
