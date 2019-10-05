@@ -59,8 +59,6 @@ ZSH_THEME="avit"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   zsh-autosuggestions
-  rails
-  ruby
   git
 )
 
@@ -92,40 +90,19 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Load Engineering
-export ENGINEERING="$HOME/workspace/engineering"
-export PATH="$PATH:$ENGINEERING/bin"
-source $ENGINEERING/bin/source_eng.sh
-export PATH="$PATH:/usr/local/bin/git"
-
 #fixing node and npm
 export PATH="/usr/local/sbin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
-
 alias cat="bat";
-
-#ruby versions
-ruby_use()
-{
-    eval "$(rbenv init -)";
-    rbenv shell $1;
-    rbenv global $1;
-    echo "Now using ruby v"$1;
-}
+alias sl="sl -ac | lolcat";
 
 NODE_VERSION=10;
-RUBY_VERSION=2.5.1;
 
 nvm use $NODE_VERSION > /dev/null;
-ruby_use $RUBY_VERSION > /dev/null;
 
-text="$(nvm use $NODE_VERSION)
-  $(ruby_use $RUBY_VERSION)";
-
-# Export StandardML path
-export PATH="$PATH:/usr/local/smlnj/bin"
+text="$(nvm use $NODE_VERSION)";
 
 # startup cowsay
 _cowsay()
