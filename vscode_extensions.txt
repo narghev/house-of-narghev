@@ -1,0 +1,16 @@
+Hridoy.rails-snippets
+ban.spellright
+davidpallinder.rails-test-runner
+dbaeumer.vscode-eslint
+eamodio.gitlens
+EditorConfig.EditorConfig
+jaredly.reason-vscode
+kumar-harsh.graphql-for-vscode
+mikestead.dotenv
+ms-azuretools.vscode-docker
+ms-python.python
+PKief.material-icon-theme
+rebornix.ruby
+shakram02.bash-beautify
+shd101wyy.markdown-preview-enhanced
+teabyii.ayu
