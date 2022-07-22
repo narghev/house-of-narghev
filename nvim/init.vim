@@ -38,8 +38,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 
-Plug 'ap/vim-css-color'
-
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 
@@ -58,21 +56,31 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'terrortylor/nvim-comment'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
 
 Plug 'jparise/vim-graphql'
 
-Plug 'windwp/nvim-autopairs'
-Plug 'windwp/nvim-ts-autotag'
+Plug 'prettier/vim-prettier', {'do': 'yarn install --frozen-lockfile --production', 'branch': 'release/0.x' }
+
+Plug 'APZelos/blamer.nvim'
+
+Plug 'numToStr/Comment.nvim'
 
 call plug#end()
 
 set termguicolors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 let ayucolor="dark"
 colorscheme ayu
 let g:airline_theme='ayu_dark'
+
 let g:NERDTreeGitStatusUseNerdFonts = 1
+
+let g:blamer_enabled = 1
 
 let mapleader = " "
 nnoremap <leader>b :NERDTreeFind<CR>
@@ -81,14 +89,14 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.* Prettier
 nnoremap <leader>fo <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <C-i> <cmd>lua vim.lsp.buf.hover()<CR>
 
 nnoremap <leader>tt <cmd>ToggleTerm<CR>
 
 noremap <C-a> ggVG
-noremap <C-c> "*you
+noremap <C-c> "*y
 
 nnoremap <silent>a, <Cmd>BufferPrevious<CR>
 nnoremap <silent>a. <Cmd>BufferNext<CR>
@@ -98,6 +106,9 @@ nnoremap <silent>a3 <Cmd>BufferGoto 3<CR>
 nnoremap <silent>a4 <Cmd>BufferGoto 4<CR>
 nnoremap <silent>a5 <Cmd>BufferGoto 5<CR>
 nnoremap <silent>aw <Cmd>BufferClose<CR>
+
+vnoremap <C-S-Up>   :m '<-2<CR>gv=gv
+vnoremap <C-S-Down> :m '>+1<CR>gv=gv
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -122,6 +133,8 @@ lua << EOF
         }
     }
   }
+
+  require('Comment').setup()
 
   local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
@@ -150,6 +163,11 @@ lua << EOF
   local cmp = require'cmp'
 
   cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      end,
+    },
     window = {
       completion = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered(),
@@ -313,7 +331,5 @@ lua << EOF
       winblend = 3
     }
   }
-
-  require("nvim-autopairs").setup {}
 EOF
 
