@@ -105,6 +105,10 @@ nnoremap <silent>a2 <Cmd>BufferGoto 2<CR>
 nnoremap <silent>a3 <Cmd>BufferGoto 3<CR>
 nnoremap <silent>a4 <Cmd>BufferGoto 4<CR>
 nnoremap <silent>a5 <Cmd>BufferGoto 5<CR>
+nnoremap <silent>a6 <Cmd>BufferGoto 6<CR>
+nnoremap <silent>a7 <Cmd>BufferGoto 7<CR>
+nnoremap <silent>a8 <Cmd>BufferGoto 8<CR>
+nnoremap <silent>a9 <Cmd>BufferGoto 9<CR>
 nnoremap <silent>aw <Cmd>BufferClose<CR>
 
 vnoremap <C-S-Up>   :m '<-2<CR>gv=gv
