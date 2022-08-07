@@ -44,7 +44,6 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.x' }
 Plug 'ayu-theme/ayu-vim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'tomlion/vim-solidity'
 
 Plug 'lewis6991/gitsigns.nvim'
 
@@ -63,11 +62,11 @@ Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
 
 Plug 'jparise/vim-graphql'
 
-Plug 'prettier/vim-prettier', {'do': 'yarn install --frozen-lockfile --production', 'branch': 'release/0.x' }
-
 Plug 'APZelos/blamer.nvim'
+Plug 'sindrets/diffview.nvim'
 
-Plug 'numToStr/Comment.nvim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-ts-autotag'
 
 call plug#end()
 
@@ -77,6 +76,10 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let ayucolor="dark"
 colorscheme ayu
 let g:airline_theme='ayu_dark'
+hi DiffAdd gui=NONE guifg=NONE guibg=#1b3c1c
+hi DiffChange gui=NONE guifg=NONE guibg=#765900
+hi DiffDelete gui=NONE guifg=NONE guibg=#D32F2F
+hi DiffText gui=NONE guifg=NONE guibg=NONE
 
 let g:NERDTreeGitStatusUseNerdFonts = 1
 
@@ -89,9 +92,11 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-autocmd BufWritePre *.* Prettier
+autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
 nnoremap <leader>fo <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <C-i> <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <C-e> <cmd>lua vim.diagnostic.open_float()<CR>
 
 nnoremap <leader>tt <cmd>ToggleTerm<CR>
 
@@ -133,32 +138,6 @@ lua << EOF
         }
     }
   }
-
-  require('Comment').setup()
-
-  local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-  end
 
   local cmp = require'cmp'
 
@@ -222,12 +201,11 @@ lua << EOF
   })
 
   local lspconfig = require("lspconfig")
-  lspconfig.tsserver.setup {
-      on_attach = on_attach,
+  lspconfig.tsserver.setup {}
+  lspconfig.solc.setup {
+      cmd = { "solc", "--include-path", "node_modules/", "--lsp"}
   }
-  lspconfig.solidity_ls.setup {
-      on_attach = on_attach,
-  }
+  lspconfig.eslint.setup {}
 
   require("nvim-lsp-installer").setup({
     automatic_installation = true,
@@ -331,5 +309,6 @@ lua << EOF
       winblend = 3
     }
   }
+
 EOF
 
