@@ -127,10 +127,10 @@ alias cat="bat"
 alias intel="arch -x86_64"
 
 # Ruby and gem
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export GEM_HOME=$HOME/.gem
 export PATH=$GEM_HOME/bin:$PATH
+
+eval "$(rbenv init - zsh)"
 
 #NVM
 export NVM_DIR="$HOME/.nvm"
@@ -143,3 +143,4 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
 export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"

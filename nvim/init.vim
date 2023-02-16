@@ -73,9 +73,11 @@ call plug#end()
 set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
+
 let ayucolor="dark"
 colorscheme ayu
 let g:airline_theme='ayu_dark'
+
 hi DiffAdd gui=NONE guifg=NONE guibg=#1b3c1c
 hi DiffChange gui=NONE guifg=NONE guibg=#765900
 hi DiffDelete gui=NONE guifg=NONE guibg=#D32F2F
@@ -129,6 +131,11 @@ lua << EOF
     }
 	}
   require('telescope').setup{
+  extensions = {
+    live_grep_args = {
+      auto_quoting = false
+      }
+    },
     pickers = {
         find_files = {
           theme = "dropdown",
@@ -202,9 +209,7 @@ lua << EOF
 
   local lspconfig = require("lspconfig")
   lspconfig.tsserver.setup {}
-  lspconfig.solc.setup {
-      cmd = { "solc", "--include-path", "node_modules/", "--lsp"}
-  }
+  lspconfig.solidity.setup{} 
   lspconfig.eslint.setup {}
 
   require("nvim-lsp-installer").setup({
