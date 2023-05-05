@@ -84,8 +84,6 @@ plugins=(
 	zsh-autosuggestions
 	auto-notify
 	zsh-syntax-highlighting
-	extract
-	catimg
 )
 
 source $ZSH/oh-my-zsh.sh
