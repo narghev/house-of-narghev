@@ -128,6 +128,7 @@ fi
 #Aliases
 alias cat="bat"
 alias intel="arch -x86_64"
+alias sl="sl -ac | lolcat"
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
