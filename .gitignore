@@ -1,0 +1,6 @@
+update.sh
+.DS_Store
+karabiner/automatic_backups/
+karabiner/assets/
+*.log
+.zshrc.private

@@ -1,0 +1,8 @@
+font-family = Fira Code
+window-decoration = false
+cursor-style = bar
+cursor-style-blink = true
+window-save-state = always
+#theme = Kanagawa Wave
+theme = Gruvbox material
+macos-icon = glass
